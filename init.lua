@@ -574,7 +574,7 @@ require('lazy').setup({
         -- cmake = {},
         -- gopls = {},
         -- pyright = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -599,7 +599,13 @@ require('lazy').setup({
           },
         },
         ols = {},
-        zls = {},
+        zls = {
+          settins = {
+            Lua = {
+              format_on_save = false,
+            },
+          },
+        },
         glsl_analyzer = {},
       }
 
@@ -811,7 +817,6 @@ require('lazy').setup({
       vim.cmd.hi 'Normal guibg=NONE ctermbg=NONE'
     end,
   },
-
   -- {
   --   'AlexvZyl/nordic.nvim',
   --   lazy = false,
@@ -869,7 +874,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'glsl', 'json' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -938,6 +943,15 @@ require('lazy').setup({
       vim.keymap.set('n', '<C-S-N>', function()
         harpoon:list():next()
       end)
+    end,
+  },
+
+  {
+    'ray-x/lsp_signature.nvim',
+    event = 'VeryLazy',
+    opts = {},
+    config = function(_, opts)
+      require('lsp_signature').setup(opts)
     end,
   },
 
